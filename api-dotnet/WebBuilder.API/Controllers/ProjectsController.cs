@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
 using System.Web;
 using WebBuilder.API.Dtos;
 using WebBuilder.API.Services;
@@ -20,7 +21,7 @@ public class ProjectsController : ControllerBase
     {
         return Ok();
     }
-
+    
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {

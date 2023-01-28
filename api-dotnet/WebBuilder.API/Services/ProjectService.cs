@@ -5,6 +5,7 @@ using WebBuilder.API.Dtos;
 using WebBuilder.API.Entities;
 using WebBuilder.API.Helpers;
 using WebBuilder.API.Mongo;
+using WebBuilder.API.Utilities;
 
 namespace WebBuilder.API.Services;
 
@@ -42,14 +43,16 @@ public class ProjectService : IProjectService
             Name = projectDto.Name,
             Description = projectDto.Description,
             GitWebUrl = HttpUtility.UrlDecode(projectDto.GitWebUrl),
-            GitRepoName = projectDto.SetGitName(projectDto.GitWebUrl),
+            GitRepoName = projectDto.GitWebUrl.SetGitName(),
         };
 
-        var isPulled = CloneProject(project.GitWebUrl);
-
-        var result = await _projectRepository.InsertOneAsync(project);
-        return result;
-
+        var cloneSucceeded = CloneProject(project.GitWebUrl);
+        if (cloneSucceeded)
+        {
+            var result = await _projectRepository.InsertOneAsync(project);
+            return result;
+        }
+        throw new Exception("Project creation error");
     }
 
     private async Task<bool> isProjectExists(string projectGitUrl)

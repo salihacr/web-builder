@@ -1,6 +1,7 @@
 ﻿using System;
 using WebBuilder.API.Constants;
 using WebBuilder.API.Helpers;
+using WebBuilder.API.Utilities;
 
 namespace WebBuilder.API.Services;
 
@@ -19,18 +20,9 @@ public class GitService : IGitService
     public bool CloneProject(string url)
     {
         string result = CMD.RunCommand($"{GitKeywords.CLONE + url}");
-
-        if(result.Contains(Common.ERROR) || result.Contains(Common.FATAL))
-        {
-            return false;
-        }
-
-        if(result.Contains(Common.RESOLVING_DELTAS) && result.Contains(Common.DONE))
-        {
-            return true;
-        }
-        return false;
-
+        string gitName = url.SetGitName();
+        bool exists = DirectoryHelper.DirectoryExists(gitName);
+        return exists;
     }
 
     public bool PullProject(string projectName)
