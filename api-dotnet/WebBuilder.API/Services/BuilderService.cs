@@ -1,13 +1,21 @@
-﻿namespace WebBuilder.API.Services;
+﻿using WebBuilder.API.Dtos;
+
+namespace WebBuilder.API.Services;
 
 public interface IBuilderService
 {
-    bool Build();
+    bool Build(string projectId);
 }
 public class BuilderService : IBuilderService
 {
-    public bool Build()
+    private readonly IGitService _git;
+    public BuilderService(IGitService git)
     {
+        _git = git;
+    }
+    public bool Build(string projectId)
+    {
+        // projeye git
         // pull et önce
         // sonra build et
         // switch case yap 
@@ -16,4 +24,6 @@ public class BuilderService : IBuilderService
         // proje yükle alanında github ssh vermesi lazım proje tipi seçmesi lazım adı da ekleyebilir
         throw new NotImplementedException();
     }
+
+
 }

@@ -1,10 +1,13 @@
-﻿namespace WebBuilder.API.Entities;
+﻿using WebBuilder.API.Attributes;
+using WebBuilder.API.Mongo;
 
-public class Project
+namespace WebBuilder.API.Entities;
+
+[BsonCollection(nameof(Project))]
+public class Project : BaseDocumentObject
 {
-    public Guid Id { get; set; }
     public string? Name { get; set; }
     public string? GitWebUrl { get; set; }
     public string? Description { get; set; }
-    public string? GitName { get; set; }
+    public string? GitRepoName { get; set; }
 }

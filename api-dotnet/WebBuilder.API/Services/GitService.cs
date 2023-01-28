@@ -14,7 +14,7 @@ public interface IGitService
 }
 
 
-public class Git : IGitService
+public class GitService : IGitService
 {
     public bool CloneProject(string url)
     {
@@ -40,6 +40,6 @@ public class Git : IGitService
         {
             return false;
         }
-        throw new NotImplementedException();
+        return true;
     }
 }

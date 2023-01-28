@@ -1,9 +1,25 @@
+using WebBuilder.API.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("test", policy =>
+//                      {
+//                          policy.AllowAnyOrigin();
+//                          policy.AllowAnyHeader();
+//                          policy.AllowAnyMethod();
+//                      });
+//});
+
+// AppSettings.json Configuration
+builder.ConfigureAppSettings();
+
 // Add services to the container.
+builder.AddDependencies();
+
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -15,6 +31,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+//app.UseCors("test");
 
 app.UseAuthorization();
 
