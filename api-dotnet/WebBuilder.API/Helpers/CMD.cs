@@ -52,7 +52,7 @@ public static class CMD
     {
         string projectsPath = getProjectsPath();
         folderName = string.IsNullOrEmpty(folderName) ? string.Empty : $"\\{folderName}";
-        string path = projectsPath + "\\projects" + folderName;
+        string path = projectsPath + folderName;
         return path;
     }
     private static string getProjectsPath()
